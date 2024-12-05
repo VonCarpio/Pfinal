@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Inspecciones</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-button (click)="captureInspection()">Nueva Inspección</ion-button>
+
+  <ion-list>
+    <ion-item *ngFor="let inspection of inspections">
+      <ion-thumbnail slot="start">
+        <img [src]="inspection.photo" />
+      </ion-thumbnail>
+      <ion-label>
+        <h3>{{ inspection.comments }}</h3>
+        <p>{{ inspection.timestamp | date:'short' }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-button expand="full" (click)="exportInspections()">Exportar JSON</ion-button>
+</ion-content>
