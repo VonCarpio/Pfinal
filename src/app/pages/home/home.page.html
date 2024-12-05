@@ -5,19 +5,52 @@
 </ion-header>
 
 <ion-content>
-  <ion-button (click)="captureInspection()">Nueva Inspección</ion-button>
+  <!-- Botón para capturar nueva inspección -->
+  <ion-button expand="full" (click)="captureInspection()">Nueva Inspección</ion-button>
 
+  <!-- Lista de inspecciones -->
   <ion-list>
-    <ion-item *ngFor="let inspection of inspections">
-      <ion-thumbnail slot="start">
+    <ion-item *ngFor="let inspection of inspections; let i = index">
+      <!-- Miniatura de la foto -->
+      <ion-thumbnail slot="start" (click)="openImageModal(inspection.photo)">
         <img [src]="inspection.photo" />
       </ion-thumbnail>
+
+      <!-- Información de la inspección -->
       <ion-label>
         <h3>{{ inspection.comments }}</h3>
-        <p>{{ inspection.timestamp | date:'short' }}</p>
+        <p>Fecha: {{ inspection.timestamp | date: 'fullDate' }}</p>
+        <p>Hora: {{ inspection.timestamp | date: 'shortTime' }}</p>
+        <p>Ubicación: Lat {{ inspection.location.latitude }}, Lng {{ inspection.location.longitude }}</p>
       </ion-label>
+
+      <!-- Botones de acción -->
+      <ion-buttons slot="end">
+        <!-- Botón para eliminar inspección -->
+        <ion-button color="danger" (click)="deleteInspection(i)">
+          <ion-icon name="trash"></ion-icon>
+        </ion-button>
+      </ion-buttons>
     </ion-item>
   </ion-list>
 
+  <!-- Botón para exportar inspecciones -->
   <ion-button expand="full" (click)="exportInspections()">Exportar JSON</ion-button>
+
+  <!-- Modal para ver la imagen -->
+  <ion-modal [isOpen]="isModalOpen" (didDismiss)="closeImageModal()">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>Imagen de Inspección</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="closeImageModal()">Cerrar</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content>
+        <ion-img [src]="selectedImage"></ion-img>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
 </ion-content>

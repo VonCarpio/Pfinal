@@ -12,6 +12,8 @@ import { saveAs } from 'file-saver';
 })
 export class HomePage implements OnInit {
   inspections: Inspection[] = [];
+  isModalOpen = false;
+  selectedImage: string | undefined;
 
   constructor(
     private cameraService: CameraService,
@@ -38,8 +40,22 @@ export class HomePage implements OnInit {
     this.inspectionService.addInspection(inspection);
   }
 
+  deleteInspection(index: number): void {
+    this.inspectionService.deleteInspection(index);
+    this.inspections = this.inspectionService.getInspections(); // Actualizar la lista
+  }  
+
   exportInspections() {
     const jsonBlob = this.inspectionService.exportToJson();
     saveAs(jsonBlob, 'inspections.json');
+  }
+
+  openImageModal(imageUrl: string) {
+    this.selectedImage = imageUrl;
+    this.isModalOpen = true;
+  }
+
+  closeImageModal() {
+    this.isModalOpen = false;
   }
 }

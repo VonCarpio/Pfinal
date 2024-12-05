@@ -11,6 +11,11 @@ export class InspectionService {
     this.inspections.push(inspection);
   }
 
+  deleteInspection(index: number): void {
+    this.inspections.splice(index, 1);
+  }
+  
+
   getInspections(): Inspection[] {
     return this.inspections;
   }
