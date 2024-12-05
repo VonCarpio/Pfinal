@@ -5,18 +5,14 @@
 </ion-header>
 
 <ion-content>
-  <!-- Botón para capturar nueva inspección -->
   <ion-button expand="full" (click)="captureInspection()">Nueva Inspección</ion-button>
 
-  <!-- Lista de inspecciones -->
   <ion-list>
     <ion-item *ngFor="let inspection of inspections; let i = index">
-      <!-- Miniatura de la foto -->
       <ion-thumbnail slot="start" (click)="openImageModal(inspection.photo)">
         <img [src]="inspection.photo" />
       </ion-thumbnail>
 
-      <!-- Información de la inspección -->
       <ion-label>
         <h3>{{ inspection.comments }}</h3>
         <p>Fecha: {{ inspection.timestamp | date: 'fullDate' }}</p>
@@ -24,9 +20,7 @@
         <p>Ubicación: Lat {{ inspection.location.latitude }}, Lng {{ inspection.location.longitude }}</p>
       </ion-label>
 
-      <!-- Botones de acción -->
       <ion-buttons slot="end">
-        <!-- Botón para eliminar inspección -->
         <ion-button color="danger" (click)="deleteInspection(i)">
           <ion-icon name="trash"></ion-icon>
         </ion-button>
@@ -34,10 +28,8 @@
     </ion-item>
   </ion-list>
 
-  <!-- Botón para exportar inspecciones -->
   <ion-button expand="full" (click)="exportInspections()">Exportar JSON</ion-button>
 
-  <!-- Modal para ver la imagen -->
   <ion-modal [isOpen]="isModalOpen" (didDismiss)="closeImageModal()">
     <ng-template>
       <ion-header>
