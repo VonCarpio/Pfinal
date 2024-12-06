@@ -42,7 +42,7 @@ export class HomePage implements OnInit {
 
   deleteInspection(index: number): void {
     this.inspectionService.deleteInspection(index);
-    this.inspections = this.inspectionService.getInspections(); // Actualizar la lista
+    this.inspections = this.inspectionService.getInspections();
   }  
 
   exportInspections() {
